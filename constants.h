@@ -101,14 +101,13 @@
 
 //	updated references for posting to Cycle Philly site for Cycle Philly adaptation for questions email Corey Acri acri.corey@gmail.com
 
-#define kInfoURL			@"http://www.ibikeknx.com/about"
-#define kTermsOfService     @"http://cycleknox.phillipgoldfarb.com/submit_trip.php"
+#define kInfoURL			@"http://www.ibikeknx.com/CycleKnox"
+#define kTermsOfService     @"http://cycleknox.phillipgoldfarb.com/submit_tr ip.php"
 #define kInstructionsURL	@"mailto:ambassadors@knoxtrans.org"
 
-#define kSaveURL			@"http://cycleknox.phillipgoldfarb.com/submit_trip.php"
+#define kSaveURL			@"https://cycleknox.ibikeknx.com/submit_trip.php"
 
-#define kFireDomain			@"https://ibikeknxios.firebaseio.com/"
-//#define kSaveURL			@""
+//#define kFireDomain			@"https://ibikeknxios.firebaseio.com/"
 
 #define kTripNotesPlaceholder	@"Comments"
 

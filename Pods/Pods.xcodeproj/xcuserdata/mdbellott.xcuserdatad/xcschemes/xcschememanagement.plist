@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-ActionSheetPicker-3.0.xcscheme</key>
+		<key>ActionSheetPicker-3.0.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1C5BB15F2B099B06865E3B26</key>
+		<key>4C965A30B87EF43F88D9BE6D7292E58C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>918F1FD63A651D869C6E47B1</key>
+		<key>90C748755AED33A3670C70EB61861367</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -100,6 +100,9 @@
 - (id)initWithNote:(Note*)note;
 - (BOOL)loadNote:(Note *)note;
 
+//Added to prevent cancelled note from being added to the saved notes list
+- (void)cancelCurrentNote;
+
 @end
 
 

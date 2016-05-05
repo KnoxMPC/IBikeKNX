@@ -407,6 +407,8 @@
                                 [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"],
                                 [[UIDevice currentDevice] systemVersion]];
         
+        NSLog(@"APPVERSION: %@", appVersion);
+        
 		User *user = [mutableFetchResults objectAtIndex:0];
 		if ( user != nil )
 		{
@@ -1243,7 +1245,7 @@
 			return @"School";
 			break;
 		case kTripPurposeWork:
-			return @"Work-related";
+			return @"Work-Related";
 			break;
 		case kTripPurposeExercise:
 			return @"Exercise";

@@ -1012,7 +1012,7 @@
 }
 
 
-- (void)didCancelPurpose
+- (void)didCancelTrip
 {
     NSLog(@"Cancelled purpose picker dialog");
 }

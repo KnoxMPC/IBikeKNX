@@ -62,8 +62,8 @@
 
 @implementation PickerViewController
 
-@synthesize customPickerView, customPickerDataSource, delegate, description;
-@synthesize descriptionText;
+@synthesize customPickerView, customPickerDataSource, delegate, description, tookPublicTransitLabel, tookPublicTransitSwitch,
+detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, cancelButton;
 
 
 // return the picker frame based on its size
@@ -85,7 +85,7 @@
 	// layout at top of page, leaving room for translucent nav bar
 	//CGRect pickerRect = CGRectMake(	0.0, 43.0, size.width, size.height );
 	
-	CGRect pickerRect = CGRectMake(	0.0, 78.0, size.width, size.height );	
+	CGRect pickerRect = CGRectMake(	0.0, 78.0, size.width, 2*size.height/3 );
 	return pickerRect;
 }
 
@@ -113,7 +113,7 @@
 	
 	// add this picker to our view controller, initially hidden
 	//customPickerView.hidden = YES;
-	[self.view addSubview:customPickerView];
+    [self.view insertSubview:customPickerView belowSubview:detailTextView];
 }
 
 
@@ -123,7 +123,12 @@
     pickerCategory = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickerCategory"];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey: @"pickerCategory"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-	[delegate didCancelNote];
+    if(pickerCategory == 3) {
+        [delegate didCancelNote];
+    }
+    else if(pickerCategory == 0) {
+        [delegate didCancelTrip];
+    }
 }
 
 
@@ -132,16 +137,51 @@
     pickerCategory = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickerCategory"];
     
     if (pickerCategory == 0) {
+        //New Save Code
+        
+        //Trip Purpose
         NSLog(@"Purpose Save button pressed");
         long row = [customPickerView selectedRowInComponent:0];
-        
-        TookTransitViewController *tookTransitViewController = [[TookTransitViewController alloc] initWithNibName:@"TookTransitViewController" bundle:nil];
-        tookTransitViewController.delegate = self.delegate;
-        
-        [self presentModalViewController:tookTransitViewController animated:YES];
-        
         [delegate didPickPurpose:row];
+        
+        //Took Public Transit
+        if (self.tookPublicTransitSwitch.on) {
+            NSLog(@"Noted took transit in TookTransitViewController");
+            [delegate didTakeTransit];
+        }
+        
+        //Additional Details
+        NSString *details;
+        
+        NSLog(@"Save Detail");
+        [detailTextView resignFirstResponder];
+        [delegate didSaveTrip];
+        
+        pickerCategory = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickerCategory"];
+        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey: @"pickerCategory"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        details = detailTextView.text;
+        
+        [delegate didEnterTripDetails:details];
+        [delegate saveTrip];
+        
     }
+    
+//    Old Save Code
+//
+//    if (pickerCategory == 0) {
+//        NSLog(@"Purpose Save button pressed");
+//        long row = [customPickerView selectedRowInComponent:0];
+//        
+//        TookTransitViewController *tookTransitViewController = [[TookTransitViewController alloc] initWithNibName:@"TookTransitViewController" bundle:nil];
+//        tookTransitViewController.delegate = self.delegate;
+//        
+//        [self presentModalViewController:tookTransitViewController animated:YES];
+//        
+//        [delegate didPickPurpose:row];
+//    }
+    
     else if (pickerCategory == 1){
         NSLog(@"Issue Save button pressed");
         NSLog(@"detail");
@@ -152,15 +192,17 @@
         detailViewController.delegate = self.delegate;
         
         [self presentModalViewController:detailViewController animated:YES];
+       
         //Note: get index of picker
-        NSInteger row = [customPickerView selectedRowInComponent:0];
-        
-        pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
-        
-        [[NSUserDefaults standardUserDefaults] setInteger:row forKey: @"pickedNotedType"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
+        //Note: moved to "finishSavingNote"
+//        NSInteger row = [customPickerView selectedRowInComponent:0];
+//        
+//        pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
+//        
+//        [[NSUserDefaults standardUserDefaults] setInteger:row forKey: @"pickedNotedType"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//        pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
         
         NSLog(@"pickedNotedType is %ld", (long)pickedNotedType);
     }
@@ -201,14 +243,30 @@
         NSInteger row = [customPickerView selectedRowInComponent:0];
         
         NSNumber *tempType = 0;
-
         
-        if(row>=7){
-            tempType = [NSNumber numberWithLong:row-7];
+        if(row == 0) {
+            //Pavement Issue
+            tempType = @0;
         }
-        else if (row<=5){
-            tempType = [NSNumber numberWithLong:11-row];
+        else if(row == 1) {
+            //Trafic signal issue
+            tempType = @1;
         }
+        else if(row == 2) {
+            //Bike lane issue
+            tempType = @4;
+        }
+        else if(row == 3) {
+            //Note this issue
+            tempType = @5;
+        }
+        
+//        if(row>=7){
+//            tempType = [NSNumber numberWithLong:row-7];
+//        }
+//        else if (row<=5){
+//            tempType = [NSNumber numberWithLong:11-row];
+//        }
         
         NSLog(@"tempType: %d", [tempType intValue]);
         
@@ -263,6 +321,15 @@
 	return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (pickerCategory == 0) {
+        [cancelButton setTitle:@"Discard"];
+    }
+    else {
+        [cancelButton setTitle:@"Cancel"];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -271,6 +338,7 @@
     if (pickerCategory == 0) {
         navBarItself.topItem.title = @"Trip Purpose";
         self.descriptionText.text = @"Please select your trip purpose & tap Save";
+        [self.navigationItem.leftBarButtonItem setTitle:@"Discard"];
     }
     else if (pickerCategory == 1){
         navBarItself.topItem.title = @"Boo this...";
@@ -315,7 +383,37 @@
     description.textColor = [UIColor whiteColor];
     
 	description.font = [UIFont fontWithName:@"Arial" size:16];
-	[self.view addSubview:description];
+//	[self.view addSubview:description];
+    
+    //Addtions for single view
+    detailTextView.delegate = self;
+    detailTextView.returnKeyType = UIReturnKeyDefault;
+    detailTextView.enablesReturnKeyAutomatically = NO;
+    [doneButton setHidden:YES];
+    [doneButton setEnabled:NO];
+    
+    if(pickerCategory == 0) {
+        [self showViewsForTripDetails];
+    }
+    else if(pickerCategory == 3) {
+        [self hideViewsForNotes];
+    }
+}
+
+- (void)showViewsForTripDetails {
+    tookPublicTransitLabel.hidden = NO;
+    tookPublicTransitSwitch.hidden = NO;
+    answerYesNo.hidden = NO;
+    additionalDetails.hidden = NO;
+    detailTextView.hidden = NO;
+}
+
+- (void)hideViewsForNotes {
+    tookPublicTransitLabel.hidden = YES;
+    tookPublicTransitSwitch.hidden = YES;
+    answerYesNo.hidden = YES;
+    additionalDetails.hidden = YES;
+    detailTextView.hidden = YES;
 }
 
 
@@ -351,28 +449,19 @@
     if (pickerCategory == 0) {
         switch (row) {
             case 0:
-                description.text = kDescCommute;
+                description.text = @"";
                 break;
             case 1:
-                description.text = kDescSchool;
+                description.text = @"";
                 break;
             case 2:
-                description.text = kDescWork;
+                description.text = @"";
                 break;
             case 3:
-                description.text = kDescExercise;
-                break;
-            case 4:
-                description.text = kDescSocial;
-                break;
-            case 5:
-                description.text = kDescShopping;
-                break;
-            case 6:
-                description.text = kDescErrand;
+                description.text = @"";
                 break;
             default:
-                description.text = kDescOther;
+                description.text = @"";
                 break;
         }
     }
@@ -386,12 +475,6 @@
                 description.text = kIssueDescTrafficSignal;
                 break;
             case 2:
-                description.text = kIssueDescEnforcement;
-                break;
-            case 3:
-                description.text = kIssueDescNeedParking;
-                break;
-            case 4:
                 description.text = kIssueDescBikeLaneIssue;
                 break;
             default:
@@ -401,70 +484,27 @@
     }
     else if (pickerCategory == 2){
         switch (row) {
-            case 0:
-                description.text = kAssetDescBikeParking;
-                break;
-            case 1:
-                description.text = kAssetDescBikeShops;
-                break;
-            case 2:
-                description.text = kAssetDescPublicRestrooms;
-                break;
-            case 3:
-                description.text = kAssetDescSecretPassage;
-                break;
-            case 4:
-                description.text = kAssetDescWaterFountains;
-                break;
             default:
-                description.text = kAssetDescNoteThisSpot;
+                description.text = @"";
                 break;
         }
     }
     else if (pickerCategory == 3){
         switch (row) {
-            case 6:
-                description.text = kDescNoteThis;
-                break;
-                
             case 0:
-                description.text = kAssetDescNoteThisSpot;
-                break;
-            case 1:
-                description.text = kAssetDescWaterFountains;
-                break;
-            case 2:
-                description.text = kAssetDescSecretPassage;
-                break;
-            case 3:
-                description.text = kAssetDescPublicRestrooms;
-                break;
-            case 4:
-                description.text = kAssetDescBikeShops;
-                break;
-            case 5:
-                description.text = kAssetDescBikeParking;
-                break;
-        
-            
-            
-            case 7:
                 description.text = kIssueDescPavementIssue;
                 break;
-            case 8:
+            case 1:
                 description.text = kIssueDescTrafficSignal;
                 break;
-            case 9:
-                description.text = kIssueDescEnforcement;
-                break;
-            case 10:
-                description.text = kIssueDescNeedParking;
-                break;
-            case 11:
+            case 2:
                 description.text = kIssueDescBikeLaneIssue;
                 break;
-            case 12:
+            case 3:
                 description.text = kIssueDescNoteThisSpot;
+                break;
+            default:
+                description.text = @"";
                 break;
 
         }
@@ -492,5 +532,78 @@
 	[super dealloc];
 }
 
-@end
+#pragma mark - Additions for single view submission
 
+- (IBAction)answerChanged:(UISwitch *)sender
+{
+    NSLog(@"Switch moved");
+    if (self.tookPublicTransitSwitch.on) {
+        self.answerYesNo.text = @"Yes";
+    } else {
+        self.answerYesNo.text = @"No";
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    backgroundView = [[UIView alloc] initWithFrame:detailTextView.frame];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    [self.view insertSubview:backgroundView belowSubview:detailTextView];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [doneButton setHidden:NO];
+        [doneButton setEnabled:YES];
+        
+        detailTextView.center = CGPointMake(detailTextView.center.x, detailTextView.center.y - 200);
+        backgroundView.frame = self.view.frame;
+        backgroundView.center = CGPointMake(self.view.center.x, self.view.center.y + 44);
+        additionalDetails.center = CGPointMake(additionalDetails.center.x, additionalDetails.center.y - 200);
+        doneButton.center = CGPointMake(doneButton.center.x, doneButton.center.y - 200);
+    }];
+    
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        detailTextView.center = CGPointMake(detailTextView.center.x, detailTextView.center.y + 200);
+        backgroundView.frame = detailTextView.frame;
+        backgroundView.center = CGPointMake(detailTextView.center.x, detailTextView.center.y + 200);
+        additionalDetails.center = CGPointMake(additionalDetails.center.x, additionalDetails.center.y + 200);
+        doneButton.center = CGPointMake(doneButton.center.x, doneButton.center.y + 200);
+        
+        [doneButton setHidden:YES];
+        [doneButton setEnabled:NO];
+    }];
+    
+    [backgroundView removeFromSuperview];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [[event allTouches] anyObject];
+    CGPoint touchLocation = [touch locationInView:self.view];
+    
+    if(!CGRectContainsPoint(detailTextView.frame, touchLocation)) {
+        [detailTextView resignFirstResponder];
+    }
+}
+
+- (void)doneButtonPressed:(id)sender {
+    [detailTextView resignFirstResponder];
+}
+
+#pragma mark - Additons for Note saving
+
+- (void)finishSavingNote {
+    NSInteger row = [customPickerView selectedRowInComponent:0];
+    
+    pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:row forKey: @"pickedNotedType"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
+}
+
+@end

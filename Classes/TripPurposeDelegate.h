@@ -89,7 +89,9 @@
 
 @optional
 - (void)didTakeTransit;
-- (void)didCancelPurpose;
+- (void)didSaveTrip;
+- (void)didCancelTrip;
+- (void)didSaveNote;
 - (void)didCancelNote;
 - (void)didPickPurpose:(long)index;
 - (void)didPickNoteType:(NSNumber *)index;

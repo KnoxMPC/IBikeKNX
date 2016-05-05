@@ -32,6 +32,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "NoteManager.h"
 #import "ImageResize.h"
+#import "PickerViewController.h"
 
 @interface DetailViewController ()
 static UIImage *shrinkImage(UIImage *original, CGSize size);
@@ -100,7 +101,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 
 -(IBAction)skip:(id)sender{
-    NSLog(@"Skip");
+    NSLog(@"Cancel");
     [delegate didCancelNote];
     
     pickerCategory = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickerCategory"];
@@ -109,22 +110,31 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     
     details = @"";
     image = nil;
-    
-    [delegate didEnterNoteDetails:details];
-    [delegate didSaveImage:nil];
-    [delegate saveNote];
+//    [delegate didEnterNoteDetails:details];
+//    [delegate didSaveImage:nil];
+//    [delegate saveNote];
 }
 
 
 -(IBAction)saveDetail:(id)sender{
+    
+    if([detailTextView.text isEqualToString:@""] && imageData == nil) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wait!" message:@"Please either add an image or provide additional details." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    PickerViewController *pvc =  (PickerViewController *)self.presentingViewController;
+    [pvc finishSavingNote];
+    
     NSLog(@"Save Detail");
     [detailTextView resignFirstResponder];
-    [delegate didCancelNote];
+    [delegate didSaveNote];
     
     pickerCategory = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickerCategory"];
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey: @"pickerCategory"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
     details = detailTextView.text;
     
     [delegate didEnterNoteDetails:details];

@@ -655,7 +655,7 @@
 	switch ( section )
 	{
         case 0:
-            return 1;
+            return 2;
             break;
 		case 1:
 			return 5;
@@ -702,7 +702,11 @@
 				case 0:
 					cell.textLabel.text = @"Questions? Contact Us";
 					break;
+                case 1:
+                    cell.textLabel.text = @"More information at IBikeKNX";
+                    break;
 			}
+            
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
@@ -915,11 +919,16 @@
 			// inner switch statement identifies row
 			switch ([indexPath indexAtPosition:1])
 			{
-				case 0:
+                case 0:{
                     [[UIApplication sharedApplication] openURL:[request URL]];
 					break;
-				case 1:
+                }
+                case 1:{
+                    NSURL *infoUrl = [NSURL URLWithString:kInfoURL];
+                    NSURLRequest *infoRequest = [NSMutableURLRequest requestWithURL:infoUrl];
+                    [[UIApplication sharedApplication] openURL:[infoRequest URL]];
 					break;
+                }
 			}
 			break;
 		}

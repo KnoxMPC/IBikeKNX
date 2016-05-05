@@ -54,7 +54,7 @@
 #import "RecordTripViewController.h"
 
 
-@interface PickerViewController : UIViewController <UIPickerViewDelegate>
+@interface PickerViewController : UIViewController <UIPickerViewDelegate, UITextViewDelegate>
 {
 	id <TripPurposeDelegate> delegate;
 	UIPickerView			*customPickerView;
@@ -66,20 +66,36 @@
     IBOutlet UINavigationBar *navBarItself;
     UILabel *descriptionText;
     
+    UIView *backgroundView;
 }
 
 
 @property (nonatomic, retain) id <TripPurposeDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIPickerView *customPickerView;
 @property (nonatomic, retain) CustomPickerDataSource *customPickerDataSource;
-
 @property (nonatomic, retain) UITextView *description;
-
 @property (nonatomic, retain) IBOutlet UILabel *descriptionText;
+
 
 - (id)initWithPurpose:(NSInteger)index;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
+
+
+//Additions for single view submission
+@property (nonatomic, retain) IBOutlet UILabel *tookPublicTransitLabel;
+@property (nonatomic, retain) IBOutlet UISwitch *tookPublicTransitSwitch;
+@property (nonatomic, retain) IBOutlet UILabel * answerYesNo;
+@property (nonatomic, retain) IBOutlet UITextView *detailTextView;
+@property (nonatomic, retain) IBOutlet UILabel *additionalDetails;
+@property (nonatomic, retain) IBOutlet UIButton *doneButton;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *cancelButton;
+
+- (IBAction)answerChanged:(UISwitch *)sender;
+- (IBAction)doneButtonPressed:(id)sender;
+
+//Added for saving / canceling notes from the detail screen
+- (void)finishSavingNote;
 
 @end

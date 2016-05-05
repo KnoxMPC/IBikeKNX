@@ -17,7 +17,6 @@
 		4688ACAB1902CF1B00A67FAF /* TookTransitViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4688ACAA1902CF1B00A67FAF /* TookTransitViewController.xib */; };
 		595123BA7AACAA159B20E848 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61ECF09DE26CC2F49AE878DD /* libPods.a */; };
 		6411996210683D7500C201F0 /* RecordTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6411996110683D7500C201F0 /* RecordTripViewController.m */; };
-		6411996D10683DCD00C201F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6411996C10683DCD00C201F0 /* CoreLocation.framework */; };
 		641199B2106851AA00C201F0 /* SavedTripsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641199B1106851AA00C201F0 /* SavedTripsViewController.m */; };
 		64119A9C1068665B00C201F0 /* TripPurposePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64119A9B1068665B00C201F0 /* TripPurposePicker.xib */; };
 		64119AAD1068672100C201F0 /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64119AAA1068672100C201F0 /* CustomView.m */; };
@@ -161,7 +160,6 @@
 		9D4CB08E16EAC2500038A96F /* tripStart.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4CB08A16EAC2450038A96F /* tripStart.png */; };
 		9D4CB08F16EAC2500038A96F /* tripStart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4CB08B16EAC24A0038A96F /* tripStart@2x.png */; };
 		9D504DA116B6CF4000B99EBC /* ZipUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D504DA016B6CF4000B99EBC /* ZipUtil.m */; };
-		9D504DA416B6D0AE00B99EBC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D504DA316B6D0AE00B99EBC /* libz.dylib */; };
 		9D6D31A716D7C017007A2497 /* noteAssetPicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6D31A316D7C017007A2497 /* noteAssetPicker.png */; };
 		9D6D31A816D7C017007A2497 /* noteAssetPicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6D31A416D7C017007A2497 /* noteAssetPicker@2x.png */; };
 		9D6D31A916D7C017007A2497 /* noteIssuePicker.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6D31A516D7C017007A2497 /* noteIssuePicker.png */; };
@@ -170,7 +168,10 @@
 		9D6D31AE16D7C189007A2497 /* noteBlankPicker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D6D31AC16D7C189007A2497 /* noteBlankPicker@2x.png */; };
 		9DD65FBB16FEA3CC00F2EB63 /* ImageResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DD65FBA16FEA3CC00F2EB63 /* ImageResize.m */; };
 		9FC3C01C1798DE89009238FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		C42D39D01BC482B800947EB9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6411996C10683DCD00C201F0 /* CoreLocation.framework */; };
+		C434EB021BB4A68F00B002A9 /* libActionSheetPicker-3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C434EB011BB4A68F00B002A9 /* libActionSheetPicker-3.0.a */; };
 		C46FC7DA1A35100000964126 /* LinkerFix.c in Sources */ = {isa = PBXBuildFile; fileRef = C46FC7D81A35100000964126 /* LinkerFix.c */; };
+		C47300A01BB21A5B004BCCAD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C473009F1BB21A5B004BCCAD /* libz.tbd */; };
 		DA78811F18DF417C008A5BE9 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA78811E18DF417C008A5BE9 /* libicucore.dylib */; };
 		DA78812118DF418A008A5BE9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA78812018DF418A008A5BE9 /* CFNetwork.framework */; };
 		DA78812518DF46DE008A5BE9 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DA78812418DF46DE008A5BE9 /* libc++.dylib */; };
@@ -375,7 +376,6 @@
 		9D4CB08B16EAC24A0038A96F /* tripStart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tripStart@2x.png"; sourceTree = "<group>"; };
 		9D504D9F16B6CF4000B99EBC /* ZipUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipUtil.h; sourceTree = "<group>"; };
 		9D504DA016B6CF4000B99EBC /* ZipUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipUtil.m; sourceTree = "<group>"; };
-		9D504DA316B6D0AE00B99EBC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		9D6D31A316D7C017007A2497 /* noteAssetPicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noteAssetPicker.png; path = "TripPurposePickerIcons V3/noteAssetPicker.png"; sourceTree = SOURCE_ROOT; };
 		9D6D31A416D7C017007A2497 /* noteAssetPicker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "noteAssetPicker@2x.png"; path = "TripPurposePickerIcons V3/noteAssetPicker@2x.png"; sourceTree = SOURCE_ROOT; };
 		9D6D31A516D7C017007A2497 /* noteIssuePicker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noteIssuePicker.png; path = "TripPurposePickerIcons V3/noteIssuePicker.png"; sourceTree = SOURCE_ROOT; };
@@ -385,8 +385,10 @@
 		9DD65FB916FEA3CC00F2EB63 /* ImageResize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageResize.h; sourceTree = "<group>"; };
 		9DD65FBA16FEA3CC00F2EB63 /* ImageResize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageResize.m; sourceTree = "<group>"; };
 		A0773C7DA56928C4E4C1E573 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		C434EB011BB4A68F00B002A9 /* libActionSheetPicker-3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libActionSheetPicker-3.0.a"; path = "Pods/../build/Debug-iphoneos/libActionSheetPicker-3.0.a"; sourceTree = "<group>"; };
 		C46FC7D81A35100000964126 /* LinkerFix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LinkerFix.c; sourceTree = "<group>"; };
 		C46FC7D91A35100000964126 /* LinkerFix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinkerFix.h; sourceTree = "<group>"; };
+		C473009F1BB21A5B004BCCAD /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		DA78811E18DF417C008A5BE9 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		DA78812018DF418A008A5BE9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		DA78812418DF46DE008A5BE9 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -399,19 +401,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42D39D01BC482B800947EB9 /* CoreLocation.framework in Frameworks */,
+				C434EB021BB4A68F00B002A9 /* libActionSheetPicker-3.0.a in Frameworks */,
 				DA78812718DF46EC008A5BE9 /* SystemConfiguration.framework in Frameworks */,
+				C47300A01BB21A5B004BCCAD /* libz.tbd in Frameworks */,
 				461A123D190091A300BBDBB6 /* Firebase.framework in Frameworks */,
 				DA78812518DF46DE008A5BE9 /* libc++.dylib in Frameworks */,
 				DA78812118DF418A008A5BE9 /* CFNetwork.framework in Frameworks */,
 				DA78811F18DF417C008A5BE9 /* libicucore.dylib in Frameworks */,
-				9D504DA416B6D0AE00B99EBC /* libz.dylib in Frameworks */,
 				8FD696E91655E36600324E6E /* MediaPlayer.framework in Frameworks */,
 				8FD696E61655E35800324E6E /* MobileCoreServices.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
-				6411996D10683DCD00C201F0 /* CoreLocation.framework in Frameworks */,
 				64F823C6106AB42B001413F8 /* Security.framework in Frameworks */,
 				642F151C1071D9DD0050BCB9 /* MapKit.framework in Frameworks */,
 				642647FD107435A200E43DEF /* AudioToolbox.framework in Frameworks */,
@@ -450,8 +453,6 @@
 				6433E5C5106D62ED00C27387 /* PersonalInfoDelegate.h */,
 				64F824E4106AFFA4001413F8 /* PersonalInfoViewController.h */,
 				64F824E5106AFFA4001413F8 /* PersonalInfoViewController.m */,
-				64119ABD10689ED800C201F0 /* PickerViewController.h */,
-				64119ABE10689ED800C201F0 /* PickerViewController.m */,
 				4688ACA51902B8EF00A67FAF /* TookTransitViewController.h */,
 				4688ACA61902B8EF00A67FAF /* TookTransitViewController.m */,
 				64581198107AC1080075DABD /* RecordingInProgressDelegate.h */,
@@ -476,6 +477,8 @@
 				8FAD930416F189EE00082B6F /* UIImageViewResizable.m */,
 				9D504D9F16B6CF4000B99EBC /* ZipUtil.h */,
 				9D504DA016B6CF4000B99EBC /* ZipUtil.m */,
+				64119ABD10689ED800C201F0 /* PickerViewController.h */,
+				64119ABE10689ED800C201F0 /* PickerViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -493,7 +496,6 @@
 			children = (
 				C46FC7D81A35100000964126 /* LinkerFix.c */,
 				C46FC7D91A35100000964126 /* LinkerFix.h */,
-				9D504DA316B6D0AE00B99EBC /* libz.dylib */,
 				64119AA81068672100C201F0 /* Trip Purpose data source */,
 				6411992B1068371B00C201F0 /* Data Model */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -527,6 +529,7 @@
 				9D4647A81604EBF400A4F9CB /* Button Icons */,
 				6411A185106A90E400C201F0 /* TripPurposePickerIcons v2 */,
 				6411A16A106A05DE00C201F0 /* Images */,
+				64119A9B1068665B00C201F0 /* TripPurposePicker.xib */,
 				6458114D107AA4D30075DABD /* bicycle-bell-normalized.aiff */,
 				8D1107310486CEB800E47090 /* I Bike KNX-Info.plist */,
 				64577E28106DC2FD003ACBFD /* dist.plist */,
@@ -535,7 +538,6 @@
 				8FBCD3C916E0E58100C11EBE /* NoteViewController.xib */,
 				64C8D40211386B26008BCADE /* RecordMap.xib */,
 				4688ACAA1902CF1B00A67FAF /* TookTransitViewController.xib */,
-				64119A9B1068665B00C201F0 /* TripPurposePicker.xib */,
 				8F1B1D40164B94E90022B776 /* DetailView.xib */,
 				8F20B0AB16F0F08A00031712 /* TripDetailViewController.xib */,
 				64FCC5B311352242000FA1B6 /* PersonalInfo.xib */,
@@ -546,6 +548,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C434EB011BB4A68F00B002A9 /* libActionSheetPicker-3.0.a */,
+				C473009F1BB21A5B004BCCAD /* libz.tbd */,
 				DA78812618DF46EC008A5BE9 /* SystemConfiguration.framework */,
 				DA78812418DF46DE008A5BE9 /* libc++.dylib */,
 				461A123C190091A300BBDBB6 /* Firebase.framework */,
@@ -774,6 +778,7 @@
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				FD23796FB72773D92A32DD79 /* Copy Pods Resources */,
+				C473009E1BB21373004BCCAD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -793,7 +798,7 @@
 				LastUpgradeCheck = 0510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 7Y5MJKWMLL;
+						DevelopmentTeam = 855MU327YL;
 					};
 				};
 			};
@@ -957,6 +962,20 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		C473009E1BB21373004BCCAD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/myfile",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 5cd620f9be85f106c839aa90e5f3b9036de8d44a c3861d2c094dfd85b40f702cf78f01e5409bec7274bcdfe061bfade797058f15";
+		};
 		FD23796FB72773D92A32DD79 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1022,7 +1041,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A0773C7DA56928C4E4C1E573 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1030,6 +1049,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1039,9 +1059,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "I Bike KNX_Prefix.pch";
 				INFOPLIST_FILE = "I Bike KNX-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phillipgoldfarb.IBikeKNX;
 				PRODUCT_NAME = "I Bike KNX";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1054,7 +1082,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 92EC822EB6B3B5EE0DCAB38F /* Pods.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1062,6 +1090,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1069,9 +1098,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "I Bike KNX_Prefix.pch";
 				INFOPLIST_FILE = "I Bike KNX-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phillipgoldfarb.IBikeKNX;
 				PRODUCT_NAME = "I Bike KNX";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1099,7 +1136,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D66A1B9D406BB51EF3844DC /* Pods.distribution.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1107,6 +1144,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1114,9 +1152,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "I Bike KNX_Prefix.pch";
 				INFOPLIST_FILE = "I Bike KNX-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phillipgoldfarb.IBikeKNX;
 				PRODUCT_NAME = "I Bike KNX";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1147,7 +1193,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8FE4144FF0B905535D406880 /* Pods.beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1156,6 +1202,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1165,9 +1212,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "I Bike KNX_Prefix.pch";
 				INFOPLIST_FILE = "I Bike KNX-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phillipgoldfarb.IBikeKNX;
 				PRODUCT_NAME = "I Bike KNX";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -1195,7 +1250,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 47A3CA86A34A10AF878BA4FB /* Pods.release beta.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1204,6 +1259,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1211,9 +1267,17 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "I Bike KNX_Prefix.pch";
 				INFOPLIST_FILE = "I Bike KNX-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_CODE_SIGN_FLAGS = "";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.phillipgoldfarb.IBikeKNX;
 				PRODUCT_NAME = "I Bike KNX";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

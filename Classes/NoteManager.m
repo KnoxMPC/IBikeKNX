@@ -125,6 +125,16 @@
 	}
 }
 
+//Added to prevent cancelled note from being added to the saved notes list
+- (void)cancelCurrentNote {
+    [managedObjectContext deleteObject:note];
+    // Commit the change.
+    NSError *error;
+    if (![managedObjectContext save:&error]) {
+        // Handle the error.
+        NSLog(@"Unresolved error %@", [error localizedDescription]);
+    }
+}
 
 //called from RecordTripViewController
 - (void)addLocation:(CLLocation *)locationNow
@@ -188,6 +198,7 @@
     
     [noteDict setValue:note.note_type     forKey:@"t"];  //note_type
     [noteDict setValue:note.details forKey:@"d"];  //details
+    NSLog(@"%@", note.details);
     
     NSString *newDateString = [outputFormatter stringFromDate:note.recorded];
     NSString *newDateStringURL = [outputFormatterURL stringFromDate:note.recorded];

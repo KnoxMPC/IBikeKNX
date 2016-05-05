@@ -59,6 +59,7 @@
 #import "NoteManager.h"
 #import "Trip.h"
 #import "User.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface RecordTripViewController () {
     CLLocationManager *_locationManager;
@@ -102,6 +103,10 @@
     appDelegate.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     appDelegate.locationManager.activityType = CLActivityTypeFitness;
     appDelegate.locationManager.delegate = self;
+    
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        [appDelegate.locationManager requestWhenInUseAuthorization];
+    }
     
     return appDelegate.locationManager;
 }
@@ -332,12 +337,12 @@
 	// Start the location manager.
     _locationManager = [self getLocationManager];
     
-    if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) { // iOS8+
-        // Sending a message to avoid compile time error
-        [[UIApplication sharedApplication] sendAction:@selector(requestAlwaysAuthorization)
-                                                   to:_locationManager
-                                                 from:self
-                                             forEvent:nil];
+    if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) { // iOS8+
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    
+    if([_locationManager respondsToSelector:@selector(setAllowsBackgroundLocationUpdates:)]) {
+        [_locationManager setAllowsBackgroundLocationUpdates:YES];
     }
 	
     CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
@@ -348,8 +353,8 @@
         
         [_locationManager startUpdatingLocation];
         mapView.showsUserLocation = YES;
-        
     }
+    
     
     NSManagedObjectContext *context = [appDelegate managedObjectContext];
     
@@ -365,7 +370,6 @@
     
 	NSLog(@"save");
 }
-
 
 - (UIButton *)createNoteButton
 {
@@ -428,17 +432,17 @@
     formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd/"];
     today = [formatter stringFromDate:[NSDate date]];
-    NSMutableString *fireURLC = [[NSMutableString alloc] initWithString:kFireDomain];
-    [fireURLC appendString:@"trips-completed/"];
-    [fireURLC appendString:today];
-    
-    Firebase* fEnd = [[Firebase alloc] initWithUrl:fireURLC];
-    Firebase* completed = [fEnd childByAutoId];
-    NSTimeInterval timeS = [[NSDate date] timeIntervalSince1970] * 1000;
-    // NSTimeInterval is defined as double
-    NSString *totalPoints = [NSString stringWithFormat: @"%d", (int)trip.coords.count];
-    NSNumber *timeSObj = [NSNumber numberWithDouble: timeS];
-    [completed setValue:@{@"deviceType": @"ios",@"distance": trip.distance,@"totalPoints": totalPoints,@"totalTime": trip.duration,@"purpose": trip.purpose,@"timestamp": timeSObj}];
+//    NSMutableString *fireURLC = [[NSMutableString alloc] initWithString:kFireDomain];
+//    [fireURLC appendString:@"trips-completed/"];
+//    [fireURLC appendString:today];
+//    
+//    Firebase* fEnd = [[Firebase alloc] initWithUrl:fireURLC];
+//    Firebase* completed = [fEnd childByAutoId];
+//    NSTimeInterval timeS = [[NSDate date] timeIntervalSince1970] * 1000;
+//    // NSTimeInterval is defined as double
+//    NSString *totalPoints = [NSString stringWithFormat: @"%d", (int)trip.coords.count];
+//    NSNumber *timeSObj = [NSNumber numberWithDouble: timeS];
+//    [completed setValue:@{@"deviceType": @"ios",@"distance": trip.distance,@"totalPoints": totalPoints,@"totalTime": trip.duration,@"purpose": trip.purpose,@"timestamp": timeSObj}];
     
     // load map view of saved trip
     MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
@@ -658,17 +662,17 @@
         formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy/MM/dd/"];
         today = [formatter stringFromDate:[NSDate date]];
-        NSMutableString *fireURL = [[NSMutableString alloc] initWithString:kFireDomain];
-        [fireURL appendString:@"trips-started/"];
-        [fireURL appendString:today];
-        
-        Firebase* fStart = [[Firebase alloc] initWithUrl:fireURL];
-        Firebase* timeStart = [fStart childByAutoId];
-        //NSLog(@"%@",fireURL);
-        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970] * 1000;
-        // NSTimeInterval is defined as double
-        NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
-        [timeStart setValue:timeStampObj];
+//        NSMutableString *fireURL = [[NSMutableString alloc] initWithString:kFireDomain];
+//        [fireURL appendString:@"trips-started/"];
+//        [fireURL appendString:today];
+//        
+//        Firebase* fStart = [[Firebase alloc] initWithUrl:fireURL];
+//        Firebase* timeStart = [fStart childByAutoId];
+//        //NSLog(@"%@",fireURL);
+//        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970] * 1000;
+//        // NSTimeInterval is defined as double
+//        NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+//        [timeStart setValue:timeStampObj];
         
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey: @"recording"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -992,8 +996,18 @@ shouldSelectViewController:(UIViewController *)viewController
 	return [tripManager getPurposeString:index];
 }
 
+- (void)didSaveTrip
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.isRecording = YES;
+    recording = YES;
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey: @"recording"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    shouldUpdateCounter = YES;
+}
 
-- (void)didCancelPurpose
+- (void)didCancelTrip
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
     appDelegate = [[UIApplication sharedApplication] delegate];
@@ -1002,13 +1016,22 @@ shouldSelectViewController:(UIViewController *)viewController
     [[NSUserDefaults standardUserDefaults] setInteger:1 forKey: @"recording"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 	shouldUpdateCounter = YES;
+    
+    [self.tripManager discardTrip];
+    [self resetRecordingInProgress];
 }
 
+- (void)didSaveNote
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+}
 
 - (void)didCancelNote
 {
 	[self.navigationController dismissModalViewControllerAnimated:YES];
     appDelegate = [[UIApplication sharedApplication] delegate];
+    [noteManager cancelCurrentNote];
 }
 
 

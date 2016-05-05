@@ -211,37 +211,13 @@
                 title = @"Pavement issue";
                 break;
             case 1:
-                title = @"Traffic signal";
+                title = @"Traffic signal issue";
                 break;
             case 2:
-                title = @"Enforcement";
-                break;
-            case 3:
-                title = @"Bike parking";
-                break;
-            case 4:
                 title = @"Bike lane issue";
                 break;
-            case 5:
+            case 3:
                 title = @"Note this issue";
-                break;
-            case 6:
-                title = @"Bike parking";
-                break;
-            case 7:
-                title = @"Bike shops";
-                break;
-            case 8:
-                title = @"Public restrooms";
-                break;
-            case 9:
-                title = @"Secret passage";
-                break;
-            case 10:
-                title = @"Water fountains";
-                break;
-            case 11:
-                title = @"Note this asset";
                 break;
             default:
                 break;

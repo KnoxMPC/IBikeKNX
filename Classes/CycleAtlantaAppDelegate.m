@@ -63,6 +63,8 @@
 #import "NoteManager.h"
 #import <CoreData/NSMappingModel.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation CycleAtlantaAppDelegate
 
@@ -81,6 +83,9 @@
 	// disable screen lock
 	//[UIApplication sharedApplication].idleTimerDisabled = NO;
 	//[UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    [Fabric with:@[[Crashlytics class]]];
+
 	
 	[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 	
