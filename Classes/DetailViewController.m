@@ -72,6 +72,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
         addPicButton.hidden = YES;
     }
     
+    detailTextView.text = @"";
+//    detailTextView.text = @"Test Post -- Please Delete";
+    
     detailTextView.layer.borderWidth = 1.0;
     detailTextView.layer.borderColor = [[UIColor blackColor] CGColor];
     self.imageFrame = [UIImage imageWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"photoFrame" ofType:@"png"]];

@@ -64,6 +64,7 @@
 #define kIssueDescPavementIssue  @"Select this option if the the road needs repairs (pothole, rough concrete, gravel in the road, manhole cover, sewer grate)."
 #define kIssueDescTrafficSignal  @"Select this option if the traffic signal is malfunctioning."
 #define kIssueDescBikeLaneIssue  @"Select this option if the bike lane needs improvement (it ends abruptly or needs repainting)."
+#define kIssueDescCrashNearMiss  @"Please note crashes, near-misses, and harassment here. (First, report it to police by calling 911). In this note, include your contact info, what happened, time, date, location, and description of the vehicle involved. "
 #define kIssueDescNoteThisSpot   @"Misc. comments about needed improvements."
 
 #define kDescNoteThis   @"Select an issue or note an asset."

@@ -136,12 +136,7 @@
 	PersonalInfoViewController *vc	= (PersonalInfoViewController *)[nav topViewController];
 	vc.managedObjectContext			= context;
     
-   
-    
 
-    
-    
-    
 	// create a tab bar controller and init with nav controllers above
 	// tabBarController = [[UITabBarController alloc] initWithNibName:@"MainWindow.xib" bundle:nil];
 	

@@ -167,21 +167,6 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
         [delegate saveTrip];
         
     }
-    
-//    Old Save Code
-//
-//    if (pickerCategory == 0) {
-//        NSLog(@"Purpose Save button pressed");
-//        long row = [customPickerView selectedRowInComponent:0];
-//        
-//        TookTransitViewController *tookTransitViewController = [[TookTransitViewController alloc] initWithNibName:@"TookTransitViewController" bundle:nil];
-//        tookTransitViewController.delegate = self.delegate;
-//        
-//        [self presentModalViewController:tookTransitViewController animated:YES];
-//        
-//        [delegate didPickPurpose:row];
-//    }
-    
     else if (pickerCategory == 1){
         NSLog(@"Issue Save button pressed");
         NSLog(@"detail");
@@ -192,18 +177,6 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
         detailViewController.delegate = self.delegate;
         
         [self presentModalViewController:detailViewController animated:YES];
-       
-        //Note: get index of picker
-        //Note: moved to "finishSavingNote"
-//        NSInteger row = [customPickerView selectedRowInComponent:0];
-//        
-//        pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
-//        
-//        [[NSUserDefaults standardUserDefaults] setInteger:row forKey: @"pickedNotedType"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//        pickedNotedType = [[NSUserDefaults standardUserDefaults] integerForKey:@"pickedNotedType"];
-        
         NSLog(@"pickedNotedType is %ld", (long)pickedNotedType);
     }
     else if (pickerCategory == 2){
@@ -257,16 +230,13 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
             tempType = @4;
         }
         else if(row == 3) {
+            //Crash / Near miss
+            tempType = @12;
+        }
+        else if(row == 4) {
             //Note this issue
             tempType = @5;
         }
-        
-//        if(row>=7){
-//            tempType = [NSNumber numberWithLong:row-7];
-//        }
-//        else if (row<=5){
-//            tempType = [NSNumber numberWithLong:11-row];
-//        }
         
         NSLog(@"tempType: %d", [tempType intValue]);
         
@@ -329,6 +299,11 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
     else {
         [cancelButton setTitle:@"Cancel"];
     }
+    
+    if (pickerCategory == 3) {
+        description.text = kIssueDescPavementIssue;
+        description.hidden = NO;
+    }
 }
 
 - (void)viewDidLoad
@@ -339,6 +314,8 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
         navBarItself.topItem.title = @"Trip Purpose";
         self.descriptionText.text = @"Please select your trip purpose & tap Save";
         [self.navigationItem.leftBarButtonItem setTitle:@"Discard"];
+        detailTextView.text = @"";
+//        detailTextView.text = @"Test Post -- Please Delete";
     }
     else if (pickerCategory == 1){
         navBarItself.topItem.title = @"Boo this...";
@@ -377,13 +354,14 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
 	//[self.navigationController setNavigationBarHidden:NO animated:YES];
 	
 	//description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 280.0, 284.0, 130.0 )];
-	description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 314.0, 284.0, 120.0 )];
+	description = [[UITextView alloc] initWithFrame:CGRectMake( 18.0, 280.0, 284.0, 200.0 )];
 	description.editable = NO;
+    description.scrollEnabled = false;
     description.backgroundColor = [UIColor clearColor];
     description.textColor = [UIColor whiteColor];
     
 	description.font = [UIFont fontWithName:@"Arial" size:16];
-//	[self.view addSubview:description];
+	[self.view addSubview:description];
     
     //Addtions for single view
     detailTextView.delegate = self;
@@ -415,7 +393,6 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
     additionalDetails.hidden = YES;
     detailTextView.hidden = YES;
 }
-
 
 // called after the view controller's view is released and set to nil.
 // For example, a memory warning which causes the view to be purged. Not invoked as a result of -dealloc.
@@ -490,17 +467,38 @@ detailTextView, additionalDetails, doneButton, answerYesNo, descriptionText, can
         }
     }
     else if (pickerCategory == 3){
+        
+        NSMutableAttributedString *descriptionAttributedText = [[NSMutableAttributedString alloc] initWithString:kIssueDescCrashNearMiss];
+        NSMutableAttributedString *link = [[NSMutableAttributedString alloc] initWithString:@"More info on what to do after a crash is on our website"];
+        [link addAttribute:NSLinkAttributeName value:@"http://www.ibikeknx.com/brochures" range:NSMakeRange(0, link.length)];
+        [descriptionAttributedText appendAttributedString:link];
+        [descriptionAttributedText addAttribute:NSForegroundColorAttributeName
+                                          value:[UIColor whiteColor]
+                                          range:NSMakeRange(0, descriptionAttributedText.length)];
+        [descriptionAttributedText addAttribute:NSFontAttributeName
+                                          value:[UIFont fontWithName:@"Arial" size:16]
+                                          range:NSMakeRange(0, descriptionAttributedText.length)];
+
+        
         switch (row) {
             case 0:
+                description.attributedText = nil;
                 description.text = kIssueDescPavementIssue;
                 break;
             case 1:
+                description.attributedText = nil;
                 description.text = kIssueDescTrafficSignal;
                 break;
             case 2:
+                description.attributedText = nil;
                 description.text = kIssueDescBikeLaneIssue;
                 break;
             case 3:
+                description.text = nil;
+                description.attributedText = descriptionAttributedText;
+                break;
+            case 4:
+                description.attributedText = nil;
                 description.text = kIssueDescNoteThisSpot;
                 break;
             default:

@@ -56,6 +56,7 @@
 #import "User.h"
 #import "LoadingView.h"
 #import "RecordTripViewController.h"
+#import "ConnectionTest.h"
 
 // use this epsilon for both real-time and post-processing distance calculations
 #define kEpsilonAccuracy		100.0
@@ -626,17 +627,35 @@
     [(RecordTripViewController *)parent displayUploadedTripMap];
     
     //TODO: get screenshot and store.
-
-    if ( theConnection )
-     {
-         receivedData=[[NSMutableData data] retain];
-     }
-     else
-     {
-         // inform the user that the download could not be made
-     
-     }
     
+    ConnectionTest *connectionTest = [ConnectionTest reachabilityWithHostName:@"www.google.com"];
+    
+    connectionTest.reachableBlock = ^(ConnectionTest* test) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"REACHABLE!");
+        [self handleReachable:test];
+        });
+    };
+    
+    connectionTest.unreachableBlock = ^(ConnectionTest* test) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"UNREACHABLE!");
+            [self handleUnreachable:test];
+        });
+    };
+    
+    [connectionTest startNotifier];
+    
+}
+
+- (void)handleReachable: (ConnectionTest *)test {
+    [test stopNotifier];
+    receivedData=[[NSMutableData data] retain];
+}
+
+- (void)handleUnreachable: (ConnectionTest *)test {
+    [test stopNotifier];
+    // inform the user that the download could not be made
 }
 
 -(void)discardTrip

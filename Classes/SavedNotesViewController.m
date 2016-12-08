@@ -320,6 +320,9 @@
         case 5:
             title = @"Note this issue";
             break;
+        case 12:
+            title = @"Crash / Near miss";
+            break;
         default:
             break;
     }

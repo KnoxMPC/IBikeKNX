@@ -1040,6 +1040,18 @@
     NSLog(@"Noted rider took public transit in SavedTripsViewController.");
 }
 
+- (void)didSaveTrip
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+    CycleAtlantaAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.isRecording = YES;
+//    recording = YES;
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey: @"recording"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+//    shouldUpdateCounter = YES;
+}
+
 - (void)saveTrip{
     [tripManager saveTrip];
     NSLog(@"Save trip");

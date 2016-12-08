@@ -217,6 +217,9 @@
                 title = @"Bike lane issue";
                 break;
             case 3:
+                title = @"Crash / Near Miss";
+                break;
+            case 4:
                 title = @"Note this issue";
                 break;
             default:

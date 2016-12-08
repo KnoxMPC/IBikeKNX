@@ -126,16 +126,13 @@
             [view release];
         }
         else if (pickerCategory == 2){
-            
             view = [[CustomView alloc] initWithFrame:CGRectZero];
             view.title = @"";
             //view.image = [UIImage imageNamed:kAssetSecretPassageIcon];
             [viewArray addObject:view];
             [view release];
-        
         }
         else if (pickerCategory == 3){
-
             view = [[CustomView alloc] initWithFrame:CGRectZero];
             view.title = @"Pavement issue";
             view.image = [UIImage imageNamed:kNoteThisIssue];
@@ -155,11 +152,15 @@
             [view release];
             
             view = [[CustomView alloc] initWithFrame:CGRectZero];
+            view.title = @"Crash / Near miss / Harassment";
+            view.image = [UIImage imageNamed:kNoteThisIssue];
+            [viewArray addObject:view];
+            [view release];
+            view = [[CustomView alloc] initWithFrame:CGRectZero];
             view.title = @"Note this issue";
             view.image = [UIImage imageNamed:kNoteThisIssue];
             [viewArray addObject:view];
             [view release];
-            
         }
         
         self.customPickerArray = viewArray;
@@ -182,7 +183,7 @@
             self.pickerTitles = [NSArray arrayWithObjects: @"Secret passage", @"Water fountains", @"Note this spot", nil];
         }
         else if (pickerCategory == 3){
-            self.pickerTitles = [NSArray arrayWithObjects:@"Pavement issue", @"Traffic signal issue", @"Bike lane issue", @"Note this issue", nil];
+            self.pickerTitles = [NSArray arrayWithObjects:@"Pavement issue", @"Traffic signal issue", @"Bike lane issue", @"Crash / Near Miss", @"Note this issue", nil];
             self.pickerImages = [NSArray arrayWithObjects: [UIImage imageNamed:kNoteThisAsset], [UIImage imageNamed:kNoteThisAsset], [UIImage imageNamed:kNoteThisAsset],
                                  [UIImage imageNamed:kNoteThisAsset], [UIImage imageNamed:kNoteThisAsset], [UIImage imageNamed:kNoteThisAsset], [UIImage imageNamed:kNoteBlank],
                                  [UIImage imageNamed:kNoteThisIssue], [UIImage imageNamed:kNoteThisIssue], [UIImage imageNamed:kNoteThisIssue], [UIImage imageNamed:kNoteThisIssue],

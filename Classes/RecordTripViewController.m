@@ -59,11 +59,13 @@
 #import "NoteManager.h"
 #import "Trip.h"
 #import "User.h"
+#import "ConnectionTest.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface RecordTripViewController () {
     CLLocationManager *_locationManager;
     BOOL _firstUserLocation;
+    ConnectionTest *_connectionTest;
 }
 
 @end
@@ -609,20 +611,6 @@
 			tripManager, @"TripManager", nil ] retain ];
 }
 
-
-//- (NSDictionary *)continueTripTimerUserInfo
-//{
-//	if ( tripManager.trip && tripManager.trip.start )
-//		return [NSDictionary dictionaryWithObjectsAndKeys:tripManager.trip.start, @"StartDate",
-//				tripManager, @"TripManager", nil ];
-//	else {
-//		NSLog(@"WARNING: tried to continue trip timer but failed to get trip.start date");
-//		return [self newTripTimerUserInfo];
-//	}
-//	
-//}
-
-
 // handle start button action
 - (IBAction)start:(UIButton *)sender
 {
@@ -632,67 +620,29 @@
     
     if(recording == NO)
     {
-        NSLog(@"start");
+        //ConnectionTest
+        _connectionTest = [ConnectionTest reachabilityWithHostName:@"www.google.com"];
         
-        // start the timer if needed
-        if ( timer == nil )
-        {
-			[self resetCounter];
-			timer = [NSTimer scheduledTimerWithTimeInterval:kCounterTimeInterval
-													 target:self selector:@selector(updateCounter:)
-												   userInfo:[[self newTripTimerUserInfo] autorelease] repeats:YES];
-        }
+        _connectionTest.reachableBlock = ^(ConnectionTest* test) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"REACHABLE!");
+                [self startIfReachable];
+            });
+        };
         
-        UIImage *buttonImage = [[UIImage imageNamed:@"blueButton.png"]
-                                resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-        UIImage *buttonImageHighlight = [[UIImage imageNamed:@"blueButtonHighlight.png"]
-                                         resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
-        [startButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-        [startButton setBackgroundImage:buttonImageHighlight forState:UIControlStateHighlighted];
-        [startButton setTitle:@"Save" forState:UIControlStateNormal];
-
-        // set recording flag so future location updates will be added as coords
-        appDelegate = [[UIApplication sharedApplication] delegate];
-        appDelegate.isRecording = YES;
-        recording = YES;
-        // Write to Firebase
-        // Create a reference to a Firebase location
-        NSDateFormatter *formatter;
-        NSString        *today;
-        formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy/MM/dd/"];
-        today = [formatter stringFromDate:[NSDate date]];
-//        NSMutableString *fireURL = [[NSMutableString alloc] initWithString:kFireDomain];
-//        [fireURL appendString:@"trips-started/"];
-//        [fireURL appendString:today];
-//        
-//        Firebase* fStart = [[Firebase alloc] initWithUrl:fireURL];
-//        Firebase* timeStart = [fStart childByAutoId];
-//        //NSLog(@"%@",fireURL);
-//        NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970] * 1000;
-//        // NSTimeInterval is defined as double
-//        NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
-//        [timeStart setValue:timeStampObj];
+        _connectionTest.unreachableBlock = ^(ConnectionTest* test) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"UNREACHABLE!");
+                [self handleUnreachable];
+            });
+        };
         
-        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey: @"recording"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        // set flag to update counter
-        shouldUpdateCounter = YES;
+        [_connectionTest startNotifier];
     }
     // do the saving
     else
     {
         NSLog(@"User Press Save Button");
-        
-//        if ([tripManager.coords count] < 1) {
-//            // no data to upload; bail now
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No data to upload" message:@"No co-ordinates have been logged for this trip yet." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-//            alert.tag = 201;
-//            [alert show];
-//            [alert release];
-//            return;
-//        }
         
         saveActionSheet = [[UIActionSheet alloc]
                            initWithTitle:@""
@@ -700,11 +650,59 @@
                            cancelButtonTitle:@"Continue"
                            destructiveButtonTitle:@"Discard"
                            otherButtonTitles:@"Save",nil];
-        //[saveActionSheet showInView:self.view];
         [saveActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     }
 	
 }
+
+- (void)startIfReachable {
+    [_connectionTest stopNotifier];
+    
+    NSLog(@"start");
+    
+    // start the timer if needed
+    if ( timer == nil )
+    {
+        [self resetCounter];
+        timer = [NSTimer scheduledTimerWithTimeInterval:kCounterTimeInterval
+                                                 target:self selector:@selector(updateCounter:)
+                                               userInfo:[[self newTripTimerUserInfo] autorelease] repeats:YES];
+    }
+    
+    UIImage *buttonImage = [[UIImage imageNamed:@"blueButton.png"]
+                            resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
+    UIImage *buttonImageHighlight = [[UIImage imageNamed:@"blueButtonHighlight.png"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(18, 18, 18, 18)];
+    [startButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [startButton setBackgroundImage:buttonImageHighlight forState:UIControlStateHighlighted];
+    [startButton setTitle:@"Save" forState:UIControlStateNormal];
+    
+    // set recording flag so future location updates will be added as coords
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.isRecording = YES;
+    recording = YES;
+    // Write to Firebase
+    // Create a reference to a Firebase location
+    NSDateFormatter *formatter;
+    NSString        *today;
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd/"];
+    today = [formatter stringFromDate:[NSDate date]];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey: @"recording"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    // set flag to update counter
+    shouldUpdateCounter = YES;
+}
+
+- (void)handleUnreachable {
+    [_connectionTest stopNotifier];
+    
+    UIAlertView *unreachableAlert = [[UIAlertView alloc] initWithTitle:@"No Connection" message:@"It looks like you currently have no connection to internet services. Please check your conneciton and try again" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [unreachableAlert show];
+}
+
 - (void)save
 {
 	[[NSUserDefaults standardUserDefaults] setInteger:0 forKey: @"pickerCategory"];
