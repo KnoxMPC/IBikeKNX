@@ -107,8 +107,6 @@
 
 #define kSaveURL			@"https://cycleknox.ibikeknx.com/submit_trip.php"
 
-//#define kFireDomain			@"https://ibikeknxios.firebaseio.com/"
-
 #define kTripNotesPlaceholder	@"Comments"
 
 // CustomView metrics used by UIPickerViewDataSource, UIPickerViewDelegate

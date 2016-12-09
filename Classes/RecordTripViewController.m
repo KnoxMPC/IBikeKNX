@@ -427,24 +427,11 @@
     Trip *trip = tripManager.trip;
     [self resetRecordingInProgress];
     
-    //Write Uploaded Trip to Firebase
-    // Create a reference to a Firebase location
     NSDateFormatter *formatter;
     NSString        *today;
     formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd/"];
     today = [formatter stringFromDate:[NSDate date]];
-//    NSMutableString *fireURLC = [[NSMutableString alloc] initWithString:kFireDomain];
-//    [fireURLC appendString:@"trips-completed/"];
-//    [fireURLC appendString:today];
-//    
-//    Firebase* fEnd = [[Firebase alloc] initWithUrl:fireURLC];
-//    Firebase* completed = [fEnd childByAutoId];
-//    NSTimeInterval timeS = [[NSDate date] timeIntervalSince1970] * 1000;
-//    // NSTimeInterval is defined as double
-//    NSString *totalPoints = [NSString stringWithFormat: @"%d", (int)trip.coords.count];
-//    NSNumber *timeSObj = [NSNumber numberWithDouble: timeS];
-//    [completed setValue:@{@"deviceType": @"ios",@"distance": trip.distance,@"totalPoints": totalPoints,@"totalTime": trip.duration,@"purpose": trip.purpose,@"timestamp": timeSObj}];
     
     // load map view of saved trip
     MapViewController *mvc = [[MapViewController alloc] initWithTrip:trip];
@@ -681,8 +668,6 @@
     appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.isRecording = YES;
     recording = YES;
-    // Write to Firebase
-    // Create a reference to a Firebase location
     NSDateFormatter *formatter;
     NSString        *today;
     formatter = [[NSDateFormatter alloc] init];
